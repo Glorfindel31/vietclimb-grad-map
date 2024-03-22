@@ -12,31 +12,39 @@
 </script>
 
 <template>
-    <Sheet>
-        <div class="flex justify-between items-center w-full p-2 border-b">
-            <h1 class="scroll-m-20 text-2xl font-semibold tracking-tight">Grading Map</h1>
-            <Button variant="outline" size="icon" asChild>
-                <SheetTrigger>
-                    <Icon icon="radix-icons:chevron-down" class="h-[1.2rem] w-[1.2rem]" />
-                </SheetTrigger>
-            </Button>
-            <SheetContent side="top">
-                <SheetHeader>
-                    <SheetDescription class="flex justify-end items-center px-8 gap-2">
-                        <toggleTheme />
-                        <Button variant="outline" asChild>
-                            <RouterLink to="/" class="text-lg font-medium">
-                                Home
-                            </RouterLink>
-                        </Button>
-                        <Button variant="outline" asChild>
-                            <RouterLink to="/about" class="text-lg font-medium">
-                                About
-                            </RouterLink>
-                        </Button>
-                    </SheetDescription>
-                </SheetHeader>
-            </SheetContent>
-        </div>
-    </Sheet>
+    <div class="flex flex-col justify-between items-center w-full border-b">
+        <Sheet>
+            <div
+                class="flex flex-row justify-between items-center w-full sm:w-[640px] p-2">
+                <h1 class="scroll-m-20 text-2xl font-semibold tracking-tight">
+                    Grading Map
+                </h1>
+                <Button variant="outline" size="icon" asChild>
+                    <SheetTrigger>
+                        <Icon
+                            icon="radix-icons:chevron-down"
+                            class="h-[1.2rem] w-[1.2rem]" />
+                    </SheetTrigger>
+                </Button>
+                <SheetContent side="top">
+                    <SheetHeader>
+                        <SheetDescription
+                            class="flex justify-end items-center px-8 gap-2">
+                            <toggleTheme />
+                            <Button variant="outline" asChild>
+                                <RouterLink to="/" class="text-lg font-medium">
+                                    Home
+                                </RouterLink>
+                            </Button>
+                            <Button variant="outline" asChild>
+                                <RouterLink to="/about" class="text-lg font-medium">
+                                    About
+                                </RouterLink>
+                            </Button>
+                        </SheetDescription>
+                    </SheetHeader>
+                </SheetContent>
+            </div>
+        </Sheet>
+    </div>
 </template>

@@ -9,8 +9,8 @@
         TableHeader,
         TableRow,
     } from '@/components/ui/table';
+    import {Badge} from '@/components/ui/badge';
 
-    // Define the interface for a single route
     interface Route {
         id: number;
         name: string;
@@ -19,13 +19,11 @@
         setter: string;
     }
 
-    // Define the interface for the overall data structure
     interface DataStructure {
         routeNum: number;
         transformedValues: Route[];
     }
 
-    // Use the DataStructure interface to type the data ref
     const data = ref<DataStructure | null>(null);
 
     onMounted(async () => {
@@ -62,7 +60,9 @@
                             {{ route.id }}
                         </TableCell>
                         <TableCell>{{ route.name }}</TableCell>
-                        <TableCell>{{ route.color }}</TableCell>
+                        <TableCell>
+                            <Badge :class="`bg-${route.color}`">{{ route.color }}</Badge>
+                        </TableCell>
                         <TableCell>{{ route.grade }}</TableCell>
                         <TableCell class="text-right">
                             {{ route.setter }}

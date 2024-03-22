@@ -3,8 +3,10 @@
 </script>
 
 <template>
-    <MenuNav />
-    <div class="flex flex-row p-4">
-        <RouterView />
+    <div class="flex flex-col justify-center items-center w-full">
+        <MenuNav />
+        <div class="flex flex-row w-full p-4 sm:w-[640px]">
+            <RouterView />
+        </div>
     </div>
 </template>
