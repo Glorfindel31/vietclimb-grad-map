@@ -61,7 +61,10 @@
                         </TableCell>
                         <TableCell>{{ route.name }}</TableCell>
                         <TableCell>
-                            <Badge :class="`bg-${route.color}`">{{ route.color }}</Badge>
+                            <Badge
+                                :class="`bg-${route.color} text-${route.color}-foreground`"
+                                >{{ route.color }}</Badge
+                            >
                         </TableCell>
                         <TableCell>{{ route.grade }}</TableCell>
                         <TableCell class="text-right">
