@@ -34,23 +34,23 @@
         --radius: 1rem;
 
         --black: 351 0% 11%;
-        --black-foreground: 351 0% 11%;
+        --black-foreground: 0 0% 100%;
         --white: 0 0% 90%;
-        --white-foreground: 0 0% 90%;
+        --white-foreground: 240 10% 3.9%;
         --yellow: 50 91% 70%;
-        --yellow-foreground: 50 91% 70%;
+        --yellow-foreground: 240 10% 3.9%;
         --orange: 17 87% 66%;
-        --orange-foreground: 17 87% 66%;
+        --orange-foreground: 0 0% 100%;
         --red: 351 72% 53%;
-        --red-foreground: 351 72% 53%;
+        --red-foreground: 0 0% 100%;
         --pink: 345 95% 71%;
-        --pink-foreground: 345 95% 71%;
+        --pink-foreground: 0 0% 100%;
         --purple: 291 31% 49%;
-        --purple-foreground: 291 31% 49%;
+        --purple-foreground: 0 0% 100%;
         --blue: 200 60% 51%;
-        --blue-foreground: 200 60% 51%;
+        --blue-foreground: 0 0% 100%;
         --green: 117 39% 69%;
-        --green-foreground: 117 39% 69%;
+        --green-foreground: 0 0% 100%;
     }
 
     .dark {
@@ -83,23 +83,23 @@
         --ring: 240 4.9% 83.9%;
 
         --black: 351 0% 11%;
-        --black-foreground: 351 0% 11%;
+        --black-foreground: 0 0% 98%;
         --white: 0 0% 90%;
-        --white-foreground: 0 0% 90%;
+        --white-foreground: 240 10% 3.9%;
         --yellow: 50 91% 70%;
-        --yellow-foreground: 50 91% 70%;
+        --yellow-foreground: 240 10% 3.9%;
         --orange: 17 87% 66%;
-        --orange-foreground: 17 87% 66%;
+        --orange-foreground: 240 10% 3.9%;
         --red: 351 72% 53%;
-        --red-foreground: 351 72% 53%;
+        --red-foreground: 240 10% 3.9%;
         --pink: 345 95% 71%;
-        --pink-foreground: 345 95% 71%;
+        --pink-foreground: 240 10% 3.9%;
         --purple: 291 31% 49%;
-        --purple-foreground: 291 31% 49%;
+        --purple-foreground: 240 10% 3.9%;
         --blue: 200 60% 51%;
-        --blue-foreground: 200 60% 51%;
+        --blue-foreground: 240 10% 3.9%;
         --green: 117 39% 69%;
-        --green-foreground: 117 39% 69%;
+        --green-foreground: 240 10% 3.9%;
     }
 }
 

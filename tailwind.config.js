@@ -5,12 +5,13 @@ module.exports = {
     darkMode: ['class'],
     safelist: ['dark'],
     prefix: '',
+    content: ['./src/**/*.{ts,tsx,vue}', './index.html'],
 
-    content: [
-        './pages/**/*.{ts,tsx,vue}',
-        './components/**/*.{ts,tsx,vue}',
-        './app/**/*.{ts,tsx,vue}',
-        './src/**/*.{ts,tsx,vue}',
+    safelist: [
+        {
+            pattern:
+                /(red|green|blue|yellow|purple|pink|white|orange|black)(-foreground)?/,
+        },
     ],
 
     theme: {
