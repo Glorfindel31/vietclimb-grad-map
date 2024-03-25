@@ -1,28 +1,9 @@
 <script setup lang="ts">
     import {ref, onMounted} from 'vue';
-    import {
-        Table,
-        TableBody,
-        TableCaption,
-        TableCell,
-        TableHead,
-        TableHeader,
-        TableRow,
-    } from '@/components/ui/table';
-    import {Badge} from '@/components/ui/badge';
+    import {columns, DataStructure} from '@/components/tableGrad/columns';
+    import DataTable from '@/components/tableGrad/dataTable.vue';
 
-    interface Route {
-        id: number;
-        name: string;
-        color: string;
-        grade: string;
-        setter: string;
-    }
-
-    interface DataStructure {
-        routeNum: number;
-        transformedValues: Route[];
-    }
+    import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 
     const data = ref<DataStructure | null>(null);
 
@@ -38,44 +19,49 @@
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center w-full">
-        <div v-if="data">
-            <h1>Number of routes: {{ data.routeNum }}</h1>
-            <Table>
-                <TableCaption>Route List</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead class="w-4">ID#</TableHead>
-                        <TableHead>Zone</TableHead>
-                        <TableHead>Color</TableHead>
-                        <TableHead class="w-4">Grade</TableHead>
-                        <TableHead class="text-right"> Set by</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    <TableRow
-                        v-for="(route, index) in data.transformedValues"
-                        :key="index">
-                        <TableCell class="font-medium">
-                            {{ route.id }}
-                        </TableCell>
-                        <TableCell>{{ route.name }}</TableCell>
-                        <TableCell>
-                            <Badge
-                                :class="`bg-${route.color} text-${route.color}-foreground hover:bg-${route.color}/80`">
-                                {{ route.color }}
-                            </Badge>
-                        </TableCell>
-                        <TableCell>{{ route.grade }}</TableCell>
-                        <TableCell class="text-right">
-                            {{ route.setter }}
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
-        </div>
-        <div v-else>
-            <p>Loading...</p>
-        </div>
+    <div v-if="data">
+        <Card class="flex flex-col justify-center items-center w-full">
+            <CardHeader>
+                <CardTitle>Number of routes: {{ data.routeNum }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <!-- <Table>
+                    <TableCaption>Route List</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead class="w-4">ID#</TableHead>
+                            <TableHead>Zone</TableHead>
+                            <TableHead>Color</TableHead>
+                            <TableHead class="w-4">Grade</TableHead>
+                            <TableHead class="text-right"> Set by</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        <TableRow
+                            v-for="(route, index) in data.transformedValues"
+                            :key="index">
+                            <TableCell class="font-medium">
+                                {{ route.id }}
+                            </TableCell>
+                            <TableCell>{{ route.name }}</TableCell>
+                            <TableCell>
+                                <Badge
+                                    :class="`bg-${route.color} text-${route.color}-foreground hover:bg-${route.color}/80`">
+                                    {{ route.color }}
+                                </Badge>
+                            </TableCell>
+                            <TableCell>{{ route.grade }}</TableCell>
+                            <TableCell class="text-right">
+                                {{ route.setter }}
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table> -->
+                <DataTable :columns="columns" :data="data.transformedValues" />
+            </CardContent>
+        </Card>
+    </div>
+    <div v-else>
+        <p>Loading...</p>
     </div>
 </template>
