@@ -1,6 +1,7 @@
 import {ColumnDef} from '@tanstack/vue-table';
 import {h} from 'vue';
-
+import {ArrowUpDown} from 'lucide-vue-next';
+import {Button} from '@/components/ui/button';
 export interface Route {
     name: string;
     id: string;
@@ -17,34 +18,74 @@ export interface DataStructure {
 export const columns: ColumnDef<Route>[] = [
     {
         accessorKey: 'id',
-        header: () => h('div', {class: 'text-center'}, '#id'),
-        cell: ({row}) => h('div', {class: 'text-center'}, row.original.id),
+        header: () => h('div', {class: 'text-left w-4'}, '#id'),
+        cell: ({row}) => h('div', {class: 'text-left w-4'}, row.original.id),
     },
     {
         accessorKey: 'name',
-        header: () => h('div', {class: 'text-left'}, 'Zone'),
-        cell: ({row}) => h('div', {class: 'text-left'}, row.original.name),
+        header: ({column}) => {
+            return h(
+                Button,
+                {
+                    variant: 'ghost',
+                    class: 'text-left w-full',
+                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+                },
+                () => ['Name', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+            );
+        },
+        cell: ({row}) => h('div', {class: 'text-center'}, row.getValue('name')),
     },
     {
         accessorKey: 'color',
-        header: () => h('div', {class: 'text-center'}, 'Color'),
+        header: ({column}) => {
+            return h(
+                Button,
+                {
+                    variant: 'ghost',
+                    class: 'text-left w-full',
+                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+                },
+                () => ['Color', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+            );
+        },
         cell: ({row}) =>
             h(
                 'div',
                 {
                     class: `text-center rounded-xl bg-${row.original.color} text-${row.original.color}-foreground`,
                 },
-                row.original.color,
+                row.getValue('color'),
             ),
     },
     {
         accessorKey: 'grade',
-        header: () => h('div', {class: 'text-center'}, 'Grade'),
-        cell: ({row}) => h('div', {class: 'text-center'}, row.original.grade),
+        header: ({column}) => {
+            return h(
+                Button,
+                {
+                    variant: 'ghost',
+                    class: 'text-left w-full',
+                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+                },
+                () => ['Grade', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+            );
+        },
+        cell: ({row}) => h('div', {class: 'text-center'}, row.getValue('grade')),
     },
     {
         accessorKey: 'setter',
-        header: () => h('div', {class: 'text-right'}, 'Setter'),
-        cell: ({row}) => h('div', {class: 'text-right uppercase'}, row.original.setter),
+        header: ({column}) => {
+            return h(
+                Button,
+                {
+                    variant: 'ghost',
+                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+                },
+                () => ['Setter', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+            );
+        },
+        cell: ({row}) =>
+            h('div', {class: 'text-center capitalize'}, row.getValue('setter')),
     },
 ];

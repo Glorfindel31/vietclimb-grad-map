@@ -25,38 +25,6 @@
                 <CardTitle>Number of routes: {{ data.routeNum }}</CardTitle>
             </CardHeader>
             <CardContent class="w-full">
-                <!-- <Table>
-                    <TableCaption>Route List</TableCaption>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead class="w-4">ID#</TableHead>
-                            <TableHead>Zone</TableHead>
-                            <TableHead>Color</TableHead>
-                            <TableHead class="w-4">Grade</TableHead>
-                            <TableHead class="text-right"> Set by</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        <TableRow
-                            v-for="(route, index) in data.transformedValues"
-                            :key="index">
-                            <TableCell class="font-medium">
-                                {{ route.id }}
-                            </TableCell>
-                            <TableCell>{{ route.name }}</TableCell>
-                            <TableCell>
-                                <Badge
-                                    :class="`bg-${route.color} text-${route.color}-foreground hover:bg-${route.color}/80`">
-                                    {{ route.color }}
-                                </Badge>
-                            </TableCell>
-                            <TableCell>{{ route.grade }}</TableCell>
-                            <TableCell class="text-right">
-                                {{ route.setter }}
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table> -->
                 <DataTable :columns="columns" :data="data.transformedValues" />
             </CardContent>
         </Card>

@@ -1,13 +1,19 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData, TValue">
     import type {ColumnDef} from '@tanstack/vue-table';
+    import {valueUpdater} from '@/lib/utils';
+    import {Button} from '@/components/ui/button';
+    import {Input} from '@/components/ui/input';
+    import {ref} from 'vue';
     import {
         FlexRender,
         getCoreRowModel,
         useVueTable,
         getPaginationRowModel,
+        SortingState,
+        getSortedRowModel,
+        ColumnFiltersState,
+        getFilteredRowModel,
     } from '@tanstack/vue-table';
-    import {Route} from '@/components/tableGrad/columns';
-    import {Button} from '@/components/ui/button';
 
     import {
         Table,
@@ -18,9 +24,12 @@
         TableRow,
     } from '@/components/ui/table';
 
+    const sorting = ref<SortingState>([]);
+    const columnFilters = ref<ColumnFiltersState>([]);
+
     const props = defineProps<{
-        columns: ColumnDef<Route>[];
-        data: Route[];
+        columns: ColumnDef<TData, TValue>[];
+        data: TData[];
     }>();
 
     const table = useVueTable({
@@ -32,11 +41,31 @@
         },
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        onSortingChange: updaterOrValue => valueUpdater(updaterOrValue, sorting),
+        onColumnFiltersChange: updaterOrValue =>
+            valueUpdater(updaterOrValue, columnFilters),
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            get sorting() {
+                return sorting.value;
+            },
+            get columnFilters() {
+                return columnFilters.value;
+            },
+        },
     });
 </script>
 
 <template>
     <div class="w-full sm:w-full">
+        <div class="flex items-center py-4">
+            <Input
+                class="max-w-sm"
+                placeholder="Filter zone..."
+                :model-value="table.getColumn('name')?.getFilterValue() as string"
+                @update:model-value="table.getColumn('name')?.setFilterValue($event)" />
+        </div>
         <Table class="w-full">
             <TableHeader class="bg-secondary overflow-hidden">
                 <TableRow
