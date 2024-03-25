@@ -34,7 +34,7 @@ export const columns: ColumnDef<Route>[] = [
                 () => ['Name', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
             );
         },
-        cell: ({row}) => h('div', {class: 'text-center'}, row.getValue('name')),
+        cell: ({row}) => h('div', {class: 'text-center w-full'}, row.getValue('name')),
     },
     {
         accessorKey: 'color',
