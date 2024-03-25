@@ -15,6 +15,7 @@
             throw new Error('Network response was not ok');
         }
         data.value = await response.json();
+        console.log(data.value?.transformedValues);
     });
 </script>
 
