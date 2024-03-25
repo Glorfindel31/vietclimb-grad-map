@@ -1,7 +1,13 @@
-<script setup lang="ts" generic="TData, TValue">
+<script setup lang="ts">
     import type {ColumnDef} from '@tanstack/vue-table';
-    import {FlexRender, getCoreRowModel, useVueTable} from '@tanstack/vue-table';
+    import {
+        FlexRender,
+        getCoreRowModel,
+        useVueTable,
+        getPaginationRowModel,
+    } from '@tanstack/vue-table';
     import {Route} from '@/components/tableGrad/columns';
+    import {Button} from '@/components/ui/button';
 
     import {
         Table,
@@ -25,13 +31,14 @@
             return props.columns;
         },
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
     });
 </script>
 
 <template>
-    <div class="border rounded-md">
-        <Table>
-            <TableHeader>
+    <div class="w-full sm:w-full">
+        <Table class="w-full">
+            <TableHeader class="bg-secondary overflow-hidden">
                 <TableRow
                     v-for="headerGroup in table.getHeaderGroups()"
                     :key="headerGroup.id">
@@ -65,5 +72,21 @@
                 </template>
             </TableBody>
         </Table>
+        <div class="flex items-center justify-end p-4 space-x-2">
+            <Button
+                variant="outline"
+                size="sm"
+                :disabled="!table.getCanPreviousPage()"
+                @click="table.previousPage()">
+                Previous
+            </Button>
+            <Button
+                variant="outline"
+                size="sm"
+                :disabled="!table.getCanNextPage()"
+                @click="table.nextPage()">
+                Next
+            </Button>
+        </div>
     </div>
 </template>

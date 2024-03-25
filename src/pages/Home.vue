@@ -15,17 +15,16 @@
             throw new Error('Network response was not ok');
         }
         data.value = await response.json();
-        console.log(data.value?.transformedValues);
     });
 </script>
 
 <template>
-    <div v-if="data">
+    <div v-if="data" class="w-full">
         <Card class="flex flex-col justify-center items-center w-full">
             <CardHeader>
                 <CardTitle>Number of routes: {{ data.routeNum }}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent class="w-full">
                 <!-- <Table>
                     <TableCaption>Route List</TableCaption>
                     <TableHeader>

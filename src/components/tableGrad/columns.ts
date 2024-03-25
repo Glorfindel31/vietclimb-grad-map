@@ -22,13 +22,20 @@ export const columns: ColumnDef<Route>[] = [
     },
     {
         accessorKey: 'name',
-        header: () => h('div', {class: 'text-center'}, 'Zone'),
-        cell: ({row}) => h('div', {class: 'text-center'}, row.original.name),
+        header: () => h('div', {class: 'text-left'}, 'Zone'),
+        cell: ({row}) => h('div', {class: 'text-left'}, row.original.name),
     },
     {
         accessorKey: 'color',
         header: () => h('div', {class: 'text-center'}, 'Color'),
-        cell: ({row}) => h('div', {class: 'text-center'}, row.original.color),
+        cell: ({row}) =>
+            h(
+                'div',
+                {
+                    class: `text-center rounded-xl bg-${row.original.color} text-${row.original.color}-foreground`,
+                },
+                row.original.color,
+            ),
     },
     {
         accessorKey: 'grade',
@@ -37,7 +44,7 @@ export const columns: ColumnDef<Route>[] = [
     },
     {
         accessorKey: 'setter',
-        header: () => h('div', {class: 'text-center'}, 'Setter'),
-        cell: ({row}) => h('div', {class: 'text-center'}, row.original.setter),
+        header: () => h('div', {class: 'text-right'}, 'Setter'),
+        cell: ({row}) => h('div', {class: 'text-right uppercase'}, row.original.setter),
     },
 ];
