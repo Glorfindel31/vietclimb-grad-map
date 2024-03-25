@@ -65,7 +65,7 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left w-full',
+                    class: 'text-left',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
                 () => ['Grade', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
