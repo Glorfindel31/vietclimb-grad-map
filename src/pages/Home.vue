@@ -20,13 +20,21 @@
 </script>
 
 <template>
-    <div v-if="data" class="w-full">
+    <div v-if="data" class="w-full flex flex-col gap-4">
         <Card class="flex flex-col justify-center items-center w-full">
             <CardHeader>
                 <CardTitle>Number of routes: {{ data.routeNum }}</CardTitle>
             </CardHeader>
             <CardContent class="w-full">
                 <DataTable :columns="columns" :data="data.transformedValues" />
+            </CardContent>
+        </Card>
+        <Card class="flex flex-col justify-center items-center w-full">
+            <CardHeader>
+                <CardTitle>Level Chart</CardTitle>
+            </CardHeader>
+            <CardContent class="w-full">
+                <Chart :incomingData="data.transformedValues" />
             </CardContent>
         </Card>
     </div>
