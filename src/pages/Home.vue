@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import Chart from '@/components/chart/Chart.vue';
     import {ref, onMounted} from 'vue';
     import {columns, DataStructure} from '@/components/tableGrad/columns';
     import DataTable from '@/components/tableGrad/dataTable.vue';
