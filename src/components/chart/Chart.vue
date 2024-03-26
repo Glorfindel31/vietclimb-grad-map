@@ -46,7 +46,7 @@
                 '--theme-primary': `hsl(var(--foreground))`,
             }">
             <VisStackedBar
-                :x="(d: Data, i: number) => i"
+                :x="(___d: Data, i: number) => i"
                 :y="(d: Data) => d.amount"
                 :rounded-corners="4"
                 :bar-padding="0.15" />
