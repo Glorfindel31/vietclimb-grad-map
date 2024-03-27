@@ -18,8 +18,18 @@ export interface DataStructure {
 export const columns: ColumnDef<Route>[] = [
     {
         accessorKey: 'id',
-        header: () => h('div', {class: 'text-left w-4'}, '#id'),
-        cell: ({row}) => h('div', {class: 'text-left w-4'}, row.original.id),
+        header: ({column}) => {
+            return h(
+                Button,
+                {
+                    variant: 'default',
+                    class: 'w-full text-xs px-1',
+                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+                },
+                () => ['Id', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
+            );
+        },
+        cell: ({row}) => h('div', {class: 'text-center  p-1 text-xs'}, row.original.id),
     },
     {
         accessorKey: 'name',
@@ -27,14 +37,15 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'ghost',
-                    class: 'text-left w-full',
+                    variant: 'default',
+                    class: 'w-full text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Name', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+                () => ['Name', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
             );
         },
-        cell: ({row}) => h('div', {class: 'text-center w-full'}, row.getValue('name')),
+        cell: ({row}) =>
+            h('div', {class: 'text-center w-full text-xs'}, row.getValue('name')),
     },
     {
         accessorKey: 'color',
@@ -42,18 +53,18 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'ghost',
-                    class: 'text-left w-full',
+                    variant: 'default',
+                    class: 'text-left w-full text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Color', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+                () => ['Color', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
             );
         },
         cell: ({row}) =>
             h(
                 'div',
                 {
-                    class: `text-center rounded-xl bg-${row.original.color} text-${row.original.color}-foreground`,
+                    class: `text-center rounded-xl bg-${row.original.color} text-${row.original.color}-foreground text-xs  h-5`,
                 },
                 row.getValue('color'),
             ),
@@ -64,14 +75,14 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'ghost',
-                    class: 'text-left',
+                    variant: 'default',
+                    class: 'text-left text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Grade', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+                () => ['Grade', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
             );
         },
-        cell: ({row}) => h('div', {class: 'text-center'}, row.getValue('grade')),
+        cell: ({row}) => h('div', {class: 'text-center text-xs'}, row.getValue('grade')),
     },
     {
         accessorKey: 'setter',
@@ -79,10 +90,11 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'ghost',
+                    variant: 'default',
+                    class: 'text-left text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Setter', h(ArrowUpDown, {class: 'ml-2 h-4 w-4'})],
+                () => ['Setter', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
             );
         },
         cell: ({row}) =>

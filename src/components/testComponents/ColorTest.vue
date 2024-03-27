@@ -7,7 +7,7 @@
         <CardHeader>
             <CardTitle>Color Test</CardTitle>
         </CardHeader>
-        <CardContent class="w-full">
+        <CardContent class="w-full p-4">
             <div class="grid grid-cols-7">
                 <div class="w-full pt-[100%] bg-background">background</div>
                 <div class="w-full pt-[100%] bg-foreground">foreground</div>

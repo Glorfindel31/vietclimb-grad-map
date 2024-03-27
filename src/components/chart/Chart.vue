@@ -37,36 +37,34 @@
 </script>
 
 <template>
-    <div class="my-3 px-3">
-        <VisXYContainer
-            :margin="{left: 20, right: 20}"
-            :data="data"
-            :style="{
-                opacity: 1,
-                '--theme-primary': `hsl(var(--primary))`,
-                '--theme-text': `hsl(var(--foreground))`,
-            }">
-            <VisStackedBar
-                :x="(___d: Data, i: number) => i"
-                :y="(d: Data) => d.amount"
-                color="var(--theme-primary)"
-                :rounded-corners="4"
-                :bar-padding="0.05" />
-            <VisAxis
-                type="x"
-                :num-ticks="data.length"
-                :tick-format="(index: number) => 'Lvl' +' '+ data[index]?.level "
-                tickTextColor="var(--theme-text)"
-                :grid-line="false"
-                :tick-line="true" />
-            <VisAxis
-                type="y"
-                :num-ticks="data.length"
-                :tick-format="(index: number) => data[index]?.level"
-                :grid-line="false"
-                :tick-line="false"
-                :domain-line="false"
-                tickTextColor="var(--theme-text)" />
-        </VisXYContainer>
-    </div>
+    <VisXYContainer
+        :margin="{left: 20, right: 20}"
+        :data="data"
+        :style="{
+            opacity: 1,
+            '--theme-primary': `hsl(var(--primary))`,
+            '--theme-text': `hsl(var(--foreground))`,
+        }">
+        <VisStackedBar
+            :x="(___d: Data, i: number) => i"
+            :y="(d: Data) => d.amount"
+            color="var(--theme-primary)"
+            :rounded-corners="4"
+            :bar-padding="0.05" />
+        <VisAxis
+            type="x"
+            :num-ticks="data.length"
+            :tick-format="(index: number) => 'Lvl' +' '+ data[index]?.level "
+            tickTextColor="var(--theme-text)"
+            :grid-line="false"
+            :tick-line="true" />
+        <VisAxis
+            type="y"
+            :num-ticks="data.length"
+            :tick-format="(index: number) => data[index]?.level"
+            :grid-line="false"
+            :tick-line="false"
+            :domain-line="false"
+            tickTextColor="var(--theme-text)" />
+    </VisXYContainer>
 </template>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
+    import {ref, onMounted} from 'vue';
+
+    import {columns, DataStructure} from '@/components/tableGrad/columns';
+    import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+
+    import DataTable from '@/components/tableGrad/dataTable.vue';
     import Chart from '@/components/chart/Chart.vue';
     import ColorTest from '@/components/testComponents/ColorTest.vue';
-    import {ref, onMounted} from 'vue';
-    import {columns, DataStructure} from '@/components/tableGrad/columns';
-    import DataTable from '@/components/tableGrad/dataTable.vue';
-
-    import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 
     const data = ref<DataStructure | null>(null);
 
@@ -26,7 +27,7 @@
             <CardHeader>
                 <CardTitle>Number of routes: {{ data.routeNum }}</CardTitle>
             </CardHeader>
-            <CardContent class="w-full">
+            <CardContent class="w-full p-4">
                 <DataTable :columns="columns" :data="data.transformedValues" />
             </CardContent>
         </Card>
@@ -34,7 +35,7 @@
             <CardHeader>
                 <CardTitle>Level Chart</CardTitle>
             </CardHeader>
-            <CardContent class="w-full">
+            <CardContent class="w-full p-4">
                 <Chart :incomingData="data.transformedValues" />
             </CardContent>
         </Card>

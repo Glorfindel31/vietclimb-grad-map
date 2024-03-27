@@ -1,9 +1,11 @@
 <script setup lang="ts" generic="TData, TValue">
     import type {ColumnDef} from '@tanstack/vue-table';
+    import {ref} from 'vue';
+
     import {valueUpdater} from '@/lib/utils';
     import {Button} from '@/components/ui/button';
     import {Input} from '@/components/ui/input';
-    import {ref} from 'vue';
+
     import {
         FlexRender,
         getCoreRowModel,
@@ -71,7 +73,10 @@
                 <TableRow
                     v-for="headerGroup in table.getHeaderGroups()"
                     :key="headerGroup.id">
-                    <TableHead v-for="header in headerGroup.headers" :key="header.id">
+                    <TableHead
+                        v-for="header in headerGroup.headers"
+                        :key="header.id"
+                        class="px-1">
                         <FlexRender
                             v-if="!header.isPlaceholder"
                             :render="header.column.columnDef.header"
@@ -85,7 +90,10 @@
                         v-for="row in table.getRowModel().rows"
                         :key="row.id"
                         :data-state="row.getIsSelected() ? 'selected' : undefined">
-                        <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+                        <TableCell
+                            v-for="cell in row.getVisibleCells()"
+                            :key="cell.id"
+                            class="px-1">
                             <FlexRender
                                 :render="cell.column.columnDef.cell"
                                 :props="cell.getContext()" />
