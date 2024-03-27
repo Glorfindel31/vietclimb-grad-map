@@ -18,15 +18,14 @@ export interface DataStructure {
 export const columns: ColumnDef<Route>[] = [
     {
         accessorKey: 'id',
-        header: ({column}) => {
+        header: () => {
             return h(
                 Button,
                 {
-                    variant: 'default',
+                    variant: 'ghost',
                     class: 'w-full text-xs px-1',
-                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Id', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
+                () => ['Id'],
             );
         },
         cell: ({row}) => h('div', {class: 'text-center  p-1 text-xs'}, row.original.id),
@@ -37,7 +36,7 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'default',
+                    variant: 'ghost',
                     class: 'w-full text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
@@ -53,7 +52,7 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'default',
+                    variant: 'ghost',
                     class: 'text-left w-full text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
@@ -75,7 +74,7 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'default',
+                    variant: 'ghost',
                     class: 'text-left text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
@@ -90,7 +89,7 @@ export const columns: ColumnDef<Route>[] = [
             return h(
                 Button,
                 {
-                    variant: 'default',
+                    variant: 'ghost',
                     class: 'text-left text-xs px-1',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
