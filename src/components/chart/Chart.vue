@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import {VisAxis, VisXYContainer, VisStackedBar} from '@unovis/vue';
     import type {Route} from '@/components/tableGrad/columns';
+    import {Card, CardContent, CardHeader} from '@/components/ui/card';
     type Data = {
         level: string;
         amount: number;
@@ -37,34 +38,41 @@
 </script>
 
 <template>
-    <VisXYContainer
-        :margin="{left: 20, right: 20}"
-        :data="data"
-        :style="{
-            opacity: 1,
-            '--theme-primary': `hsl(var(--primary))`,
-            '--theme-text': `hsl(var(--foreground))`,
-        }">
-        <VisStackedBar
-            :x="(___d: Data, i: number) => i"
-            :y="(d: Data) => d.amount"
-            color="var(--theme-primary)"
-            :rounded-corners="4"
-            :bar-padding="0.05" />
-        <VisAxis
-            type="x"
-            :num-ticks="data.length"
-            :tick-format="(index: number) => 'Lvl' +' '+ data[index]?.level "
-            tickTextColor="var(--theme-text)"
-            :grid-line="false"
-            :tick-line="true" />
-        <VisAxis
-            type="y"
-            :num-ticks="data.length"
-            :tick-format="(index: number) => data[index]?.level"
-            :grid-line="false"
-            :tick-line="false"
-            :domain-line="false"
-            tickTextColor="var(--theme-text)" />
-    </VisXYContainer>
+    <Card class="flex flex-col justify-center items-center flex-1 md:max-w-[30vw]">
+        <CardHeader>
+            <CardTitle>Level Chart</CardTitle>
+        </CardHeader>
+        <CardContent class="w-full p-4">
+            <VisXYContainer
+                :margin="{left: 20, right: 20}"
+                :data="data"
+                :style="{
+                    opacity: 1,
+                    '--theme-primary': `hsl(var(--primary))`,
+                    '--theme-text': `hsl(var(--foreground))`,
+                }">
+                <VisStackedBar
+                    :x="(___d: Data, i: number) => i"
+                    :y="(d: Data) => d.amount"
+                    color="var(--theme-primary)"
+                    :rounded-corners="4"
+                    :bar-padding="0.05" />
+                <VisAxis
+                    type="x"
+                    :num-ticks="data.length"
+                    :tick-format="(index: number) => 'Lvl' +' '+ data[index]?.level "
+                    tickTextColor="var(--theme-text)"
+                    :grid-line="false"
+                    :tick-line="true" />
+                <VisAxis
+                    type="y"
+                    :num-ticks="data.length"
+                    :tick-format="(index: number) => data[index]?.level"
+                    :grid-line="false"
+                    :tick-line="false"
+                    :domain-line="false"
+                    tickTextColor="var(--theme-text)" />
+            </VisXYContainer>
+        </CardContent>
+    </Card>
 </template>
