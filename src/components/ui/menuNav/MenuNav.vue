@@ -19,18 +19,20 @@
                 <h1 class="scroll-m-20 text-2xl font-semibold tracking-tight">
                     Grading Map
                 </h1>
-                <Button variant="outline" size="icon" asChild>
-                    <SheetTrigger>
-                        <Icon
-                            icon="radix-icons:chevron-down"
-                            class="h-[1.2rem] w-[1.2rem]" />
-                    </SheetTrigger>
-                </Button>
+                <div class="flex flex-row gap-2">
+                    <toggleTheme />
+                    <Button variant="outline" size="icon" asChild>
+                        <SheetTrigger>
+                            <Icon
+                                icon="radix-icons:chevron-down"
+                                class="h-[1.2rem] w-[1.2rem]" />
+                        </SheetTrigger>
+                    </Button>
+                </div>
                 <SheetContent side="top">
                     <SheetHeader>
                         <SheetDescription
                             class="flex justify-end items-center px-8 gap-2">
-                            <toggleTheme />
                             <Button variant="outline" asChild>
                                 <RouterLink to="/" class="text-lg font-medium">
                                     Home

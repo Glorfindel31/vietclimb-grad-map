@@ -43,27 +43,30 @@
             :data="data"
             :style="{
                 opacity: 1,
-                '--theme-primary': `hsl(var(--foreground))`,
+                '--theme-primary': `hsl(var(--primary))`,
+                '--theme-text': `hsl(var(--foreground))`,
             }">
             <VisStackedBar
                 :x="(___d: Data, i: number) => i"
                 :y="(d: Data) => d.amount"
+                color="var(--theme-primary)"
                 :rounded-corners="4"
-                :bar-padding="0.15" />
+                :bar-padding="0.05" />
             <VisAxis
                 type="x"
                 :num-ticks="data.length"
-                :tick-format="(index: number) => 'level' + data[index]?.level "
+                :tick-format="(index: number) => 'Lvl' +' '+ data[index]?.level "
+                tickTextColor="var(--theme-text)"
                 :grid-line="false"
-                :tick-line="false" />
+                :tick-line="true" />
             <VisAxis
                 type="y"
                 :num-ticks="data.length"
-                :tick-format="(index: number) => data[index]?.amount"
+                :tick-format="(index: number) => data[index]?.level"
                 :grid-line="false"
                 :tick-line="false"
                 :domain-line="false"
-                color="var(--theme-primary)" />
+                tickTextColor="var(--theme-text)" />
         </VisXYContainer>
     </div>
 </template>
