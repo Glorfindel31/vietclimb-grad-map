@@ -1,7 +1,8 @@
 <script setup lang="ts">
     import {VisAxis, VisXYContainer, VisStackedBar} from '@unovis/vue';
     import type {Route} from '@/components/tableGrad/columns';
-    import {Card, CardContent, CardHeader} from '@/components/ui/card';
+    import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+    import {cn} from '@/lib/utils';
     type Data = {
         level: string;
         amount: number;
@@ -11,6 +12,11 @@
         incomingData: {
             type: Array as () => Route[],
             required: true,
+        },
+        class: {
+            type: String,
+            required: false,
+            default: '',
         },
     });
 
@@ -38,7 +44,7 @@
 </script>
 
 <template>
-    <Card class="flex flex-col justify-center items-center flex-1 md:max-w-[30vw]">
+    <Card :class="cn(props.class)">
         <CardHeader>
             <CardTitle>Level Chart</CardTitle>
         </CardHeader>

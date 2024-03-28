@@ -23,12 +23,13 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'w-full text-xs px-1',
+                    class: 'w-full text-xs px-1 md:text-md ',
                 },
                 () => ['Id'],
             );
         },
-        cell: ({row}) => h('div', {class: 'text-center  p-1 text-xs'}, row.original.id),
+        cell: ({row}) =>
+            h('div', {class: 'text-center  p-1 text-xs md:text-md '}, row.original.id),
     },
     {
         accessorKey: 'name',
@@ -37,14 +38,21 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'w-full text-xs px-1',
+                    class: 'w-full text-xs px-1 md:text-md ',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Name', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
+                () => [
+                    'Name',
+                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                ],
             );
         },
         cell: ({row}) =>
-            h('div', {class: 'text-center w-full text-xs'}, row.getValue('name')),
+            h(
+                'div',
+                {class: 'text-center w-full text-xs md:text-md '},
+                row.getValue('name'),
+            ),
     },
     {
         accessorKey: 'color',
@@ -53,17 +61,20 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left w-full text-xs px-1',
+                    class: 'text-left w-full text-xs px-1 md:text-md ',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Color', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
+                () => [
+                    'Color',
+                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                ],
             );
         },
         cell: ({row}) =>
             h(
                 'div',
                 {
-                    class: `text-center rounded-xl bg-${row.original.color} text-${row.original.color}-foreground text-xs  h-5`,
+                    class: `text-center rounded-xl bg-${row.original.color} text-${row.original.color}-foreground text-xs  h-5 md:text-md `,
                 },
                 row.getValue('color'),
             ),
@@ -75,13 +86,17 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left text-xs px-1',
+                    class: 'text-left text-xs px-1 md:text-md ',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Grade', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
+                () => [
+                    'Grade',
+                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                ],
             );
         },
-        cell: ({row}) => h('div', {class: 'text-center text-xs'}, row.getValue('grade')),
+        cell: ({row}) =>
+            h('div', {class: 'text-center text-xs md:text-md '}, row.getValue('grade')),
     },
     {
         accessorKey: 'setter',
@@ -90,13 +105,20 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left text-xs px-1',
+                    class: 'text-left text-xs px-1 md:text-md ',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => ['Setter', h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs'})],
+                () => [
+                    'Setter',
+                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                ],
             );
         },
         cell: ({row}) =>
-            h('div', {class: 'text-center capitalize'}, row.getValue('setter')),
+            h(
+                'div',
+                {class: 'text-center capitalize text-xs px-1 md:text-md '},
+                row.getValue('setter'),
+            ),
     },
 ];

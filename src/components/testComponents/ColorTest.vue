@@ -1,9 +1,18 @@
 <script setup lang="ts">
     import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+    import {cn} from '@/lib/utils';
+
+    const props = defineProps({
+        class: {
+            type: String,
+            required: false,
+            default: '',
+        },
+    });
 </script>
 
 <template>
-    <Card class="flex flex-col justify-center items-center w-full">
+    <Card :class="cn(props.class)">
         <CardHeader>
             <CardTitle>Color Test</CardTitle>
         </CardHeader>

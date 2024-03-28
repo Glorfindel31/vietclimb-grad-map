@@ -60,7 +60,7 @@
 </script>
 
 <template>
-    <div class="w-full sm:w-full">
+    <div class="w-full">
         <div class="flex items-center py-4">
             <Input
                 class="max-w-sm"
