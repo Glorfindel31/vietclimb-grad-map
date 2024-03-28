@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+    import {Card, CardContent} from '@/components/ui/card';
     import DataTable from '@/components/tableGrad/dataTable.vue';
     import {columns, DataStructure} from '@/components/tableGrad/columns';
     import {cn} from '@/lib/utils';
@@ -18,10 +18,7 @@
 </script>
 <template>
     <Card :class="cn(props.class)">
-        <CardHeader>
-            <CardTitle>Number of routes: {{ props.data.routeNum }}</CardTitle>
-        </CardHeader>
-        <CardContent class="w-full p-4">
+        <CardContent>
             <DataTable :columns="columns" :data="props.data.transformedValues" />
         </CardContent>
     </Card>

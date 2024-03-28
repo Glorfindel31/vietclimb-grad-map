@@ -12,8 +12,8 @@
 </script>
 
 <template>
-    <Card :class="cn(props.class)">
-        <CardHeader>
+    <Card>
+        <CardHeader :class="cn(props.class)">
             <CardTitle>Color Test</CardTitle>
         </CardHeader>
         <CardContent class="w-full p-4">

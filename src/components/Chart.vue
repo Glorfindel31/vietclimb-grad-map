@@ -3,10 +3,7 @@
     import type {Route} from '@/components/tableGrad/columns';
     import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
     import {cn} from '@/lib/utils';
-    type Data = {
-        level: string;
-        amount: number;
-    };
+    import {RouteCount, transformData} from '@/pages/index';
 
     const props = defineProps({
         incomingData: {
@@ -20,27 +17,7 @@
         },
     });
 
-    const transformData = (incomingData: Route[]): Data[] => {
-        const data: Data[] = [];
-
-        incomingData.reduce((gradeCounts, route) => {
-            const existing = gradeCounts.find(d => d.level === route.grade);
-            if (existing) {
-                existing.amount++;
-            } else {
-                gradeCounts.push({
-                    level: route.grade,
-                    amount: 1,
-                });
-            }
-            return gradeCounts;
-        }, data);
-        data.sort((a, b) => {
-            return Number(a.level) - Number(b.level);
-        });
-        return data;
-    };
-    const data: Data[] = transformData(props.incomingData);
+    const data: RouteCount[] = transformData(props.incomingData);
 </script>
 
 <template>
@@ -48,7 +25,7 @@
         <CardHeader>
             <CardTitle>Level Chart</CardTitle>
         </CardHeader>
-        <CardContent class="w-full p-4">
+        <CardContent>
             <VisXYContainer
                 :margin="{left: 20, right: 20}"
                 :data="data"
@@ -58,8 +35,8 @@
                     '--theme-text': `hsl(var(--foreground))`,
                 }">
                 <VisStackedBar
-                    :x="(___d: Data, i: number) => i"
-                    :y="(d: Data) => d.amount"
+                    :x="(___d: RouteCount, i: number) => i"
+                    :y="(d: RouteCount) => d.amount"
                     color="var(--theme-primary)"
                     :rounded-corners="4"
                     :bar-padding="0.05" />

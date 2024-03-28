@@ -1,15 +1,24 @@
 <script setup lang="ts">
     import {ref, onMounted} from 'vue';
-
     import {DataStructure} from '@/components/tableGrad/columns';
+    import {
+        transformData,
+        RouteCount,
+        easyRouteCounter,
+        normalRouteCounter,
+    } from '@/pages/index';
 
-    import SkeletonHome from '@/components/skeletonHome/SkeletonHome.vue';
-
-    import RouteList from '@/components/routeList/RouteList.vue';
-    import Chart from '@/components/chart/Chart.vue';
-    import ColorTest from '@/components/testComponents/ColorTest.vue';
+    import RouteCountCards from '@/components/RouteCountCards.vue';
+    import RouteList from '@/components/RouteList.vue';
+    import Chart from '@/components/Chart.vue';
+    import SkeletonHome from '@/components/SkeletonHome.vue';
 
     const data = ref<DataStructure | null>(null);
+
+    const routeNumber = ref<RouteCount[] | null>(null);
+    const easyRouteCount = ref<number | 0>(0);
+    const normalRouteCount = ref<number | 0>(0);
+    const hardRouteCount = ref<number | 0>(0);
 
     onMounted(async () => {
         const response = await fetch(
@@ -19,20 +28,44 @@
             throw new Error('Network response was not ok');
         }
         data.value = await response.json();
+        if (!data.value) {
+            throw new Error('Data is null');
+        }
+        routeNumber.value = transformData(data.value.transformedValues);
+        easyRouteCount.value = easyRouteCounter(routeNumber.value);
+        normalRouteCount.value = normalRouteCounter(routeNumber.value);
+        hardRouteCount.value =
+            data.value.routeNum - easyRouteCount.value - normalRouteCount.value;
     });
 </script>
 
 <template>
-    <div v-if="data" class="flex flex-col flex-wrap w-screen md:flex-row gap-4">
-        <RouteList
-            :data="data"
-            class="flex flex-col justify-center items-center flex-grow-0 md:flex-grow" />
-        <Chart
-            :incomingData="data.transformedValues"
-            class="flex flex-col justify-center items-center flex-grow-0 md:flex-grow" />
-        <ColorTest class="flex flex-col justify-center items-center" />
-    </div>
-    <div v-else class="flex flex-col flex-wrap w-screen md:flex-row gap-4">
-        <SkeletonHome />
+    <div class="flex flex-col justify-center min-w-full">
+        <div class="overflow-hidden rounded-[0.5rem] border bg-background shadow p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-3xl font-bold tracking-tight">Gym Dashboard</h2>
+                <img src="/LogoDarkTheme.png" class="w-40 block dark:hidden" alt="Logo" />
+                <img
+                    src="/LogoLightTheme.png"
+                    class="w-40 hidden dark:block"
+                    alt="Logo" />
+            </div>
+            <div v-if="data">
+                <RouteCountCards
+                    :routeNum="data.routeNum"
+                    :easyRouteCount="easyRouteCount"
+                    :normalRouteCount="normalRouteCount"
+                    :hardRouteCount="hardRouteCount" />
+                <div class="grid gap-4 mb-4 md:grid-cols-2 lg:grid-cols-2">
+                    <RouteList :data="data" class="" />
+                    <Chart
+                        :incomingData="data.transformedValues"
+                        class="flex flex-col justify-center items-center" />
+                </div>
+            </div>
+            <div v-else>
+                <SkeletonHome />
+            </div>
+        </div>
     </div>
 </template>
