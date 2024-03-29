@@ -41,7 +41,8 @@
 
 <template>
     <div class="flex flex-col justify-center min-w-full">
-        <div class="overflow-hidden rounded-[0.5rem] border bg-background shadow p-4">
+        <div
+            class="overflow-hidden sm:rounded-[0.5rem] sm:border bg-background shadow p-2 sm:p-4 md:p-4 lg:p-8">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-3xl font-bold tracking-tight">Gym Dashboard</h2>
                 <img src="/LogoDarkTheme.png" class="w-40 block dark:hidden" alt="Logo" />
@@ -50,22 +51,35 @@
                     class="w-40 hidden dark:block"
                     alt="Logo" />
             </div>
-            <div v-if="data">
-                <RouteCountCards
-                    :routeNum="data.routeNum"
-                    :easyRouteCount="easyRouteCount"
-                    :normalRouteCount="normalRouteCount"
-                    :hardRouteCount="hardRouteCount" />
-                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-                    <RouteList :data="data" class="" />
-                    <Chart
-                        :incomingData="data.transformedValues"
-                        class="flex flex-col justify-center items-center" />
+            <Transition name="fade">
+                <div v-if="data">
+                    <RouteCountCards
+                        :routeNum="data.routeNum"
+                        :easyRouteCount="easyRouteCount"
+                        :normalRouteCount="normalRouteCount"
+                        :hardRouteCount="hardRouteCount" />
+                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+                        <RouteList :data="data" class="" />
+                        <Chart
+                            :incomingData="data.transformedValues"
+                            class="flex flex-col justify-center items-center" />
+                    </div>
                 </div>
-            </div>
-            <div v-else>
-                <SkeletonHome />
-            </div>
+                <div v-else>
+                    <SkeletonHome />
+                </div>
+            </Transition>
         </div>
     </div>
 </template>
+
+<style scoped>
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 1.5s;
+    }
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+    }
+</style>

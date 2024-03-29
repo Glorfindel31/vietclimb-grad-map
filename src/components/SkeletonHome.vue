@@ -54,7 +54,7 @@
             <CardContent class="w-full p-4">
                 <div class="space-y-4">
                     <div v-for="index in 1" class="space-y-2" :key="index">
-                        <Skeleton v-for="index in 3" class="h-4 w-[250px]" :key="index" />
+                        <Skeleton v-for="index in 3" class="h-4 w-[200px]" :key="index" />
                     </div>
                 </div>
             </CardContent>
