@@ -56,7 +56,7 @@
                     :easyRouteCount="easyRouteCount"
                     :normalRouteCount="normalRouteCount"
                     :hardRouteCount="hardRouteCount" />
-                <div class="grid gap-4 mb-4 md:grid-cols-2 lg:grid-cols-2">
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
                     <RouteList :data="data" class="" />
                     <Chart
                         :incomingData="data.transformedValues"
