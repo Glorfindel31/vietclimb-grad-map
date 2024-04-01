@@ -11,6 +11,7 @@
     import RouteCountCards from '@/components/RouteCountCards.vue';
     import RouteList from '@/components/RouteList.vue';
     import Chart from '@/components/Chart.vue';
+    import ChartRouteSetter from '@/components/ChartRouteSetter.vue';
     import SkeletonHome from '@/components/SkeletonHome.vue';
 
     const data = ref<DataStructure | null>(null);
@@ -58,11 +59,16 @@
                         :easyRouteCount="easyRouteCount"
                         :normalRouteCount="normalRouteCount"
                         :hardRouteCount="hardRouteCount" />
-                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-2 mb-4">
                         <RouteList :data="data" class="" />
                         <Chart
                             :incomingData="data.transformedValues"
-                            class="flex flex-col justify-center items-center" />
+                            class="flex flex-col justify-center items-center w-full" />
+                    </div>
+                    <div class="flex flex-col justify-center min-w-full">
+                        <ChartRouteSetter
+                            :incomingData="data.transformedValues"
+                            class="flex flex-col justify-center items-center w-full" />
                     </div>
                 </div>
                 <div v-else>

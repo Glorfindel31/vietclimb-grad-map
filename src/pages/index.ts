@@ -3,6 +3,10 @@ export type RouteCount = {
     level: string;
     amount: number;
 };
+export type RouteCountSetter = {
+    name: string;
+    amount: number;
+};
 
 export const transformData = (incomingData: Route[]): RouteCount[] => {
     const data: RouteCount[] = [];
@@ -21,6 +25,26 @@ export const transformData = (incomingData: Route[]): RouteCount[] => {
     }, data);
     data.sort((a, b) => {
         return Number(a.level) - Number(b.level);
+    });
+    return data;
+};
+
+export const transformDataSetter = (incomingData: Route[]): RouteCountSetter[] => {
+    const data: RouteCountSetter[] = [];
+    incomingData.reduce((nameCount, route) => {
+        const existing = nameCount.find(d => d.name === route.setter);
+        if (existing) {
+            existing.amount++;
+        } else {
+            nameCount.push({
+                name: route.setter,
+                amount: 1,
+            });
+        }
+        return nameCount;
+    }, data);
+    data.sort((a, b) => {
+        return Number(a.name) - Number(b.name);
     });
     return data;
 };
