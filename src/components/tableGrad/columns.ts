@@ -8,6 +8,9 @@ export interface Route {
     color: string;
     grade: string;
     setter: string;
+    comment: string;
+    link: string;
+    date: string;
 }
 
 export interface DataStructure {
