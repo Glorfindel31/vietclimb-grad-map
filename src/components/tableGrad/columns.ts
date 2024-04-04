@@ -26,7 +26,7 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'w-full text-xs px-1 md:text-md ',
+                    class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
                 },
                 () => ['Id'],
             );
@@ -41,7 +41,7 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'w-full text-xs px-1 md:text-md ',
+                    class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
                 () => [
@@ -64,7 +64,7 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left w-full text-xs px-1 md:text-md ',
+                    class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
                 () => [
@@ -89,7 +89,7 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left text-xs px-1 md:text-md ',
+                    class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
                 () => [
@@ -108,7 +108,7 @@ export const columns: ColumnDef<Route>[] = [
                 Button,
                 {
                     variant: 'ghost',
-                    class: 'text-left text-xs px-1 md:text-md ',
+                    class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
                 () => [

@@ -69,7 +69,7 @@
                 @update:model-value="table.getColumn('name')?.setFilterValue($event)" />
         </div>
         <Table class="w-full">
-            <TableHeader class="bg-accent overflow-hidden">
+            <TableHeader class="overflow-hidden">
                 <TableRow
                     v-for="headerGroup in table.getHeaderGroups()"
                     :key="headerGroup.id">
