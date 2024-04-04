@@ -18,6 +18,14 @@ export interface DataStructure {
     routeNum: number;
 }
 
+function formatDate(isoDate: string): string {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+    return `${day}/${month}/${year}`;
+}
+
 export const columns: ColumnDef<Route>[] = [
     {
         accessorKey: 'id',
@@ -45,8 +53,8 @@ export const columns: ColumnDef<Route>[] = [
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
                 () => [
-                    'Name',
-                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                    'Zone',
+                    h(ArrowUpDown, {class: 'ml-1 h-3 w-3 text-xs md:text-md'}),
                 ],
             );
         },
@@ -69,7 +77,7 @@ export const columns: ColumnDef<Route>[] = [
                 },
                 () => [
                     'Color',
-                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                    h(ArrowUpDown, {class: 'ml-1 h-3 w-3 text-xs md:text-md'}),
                 ],
             );
         },
@@ -92,10 +100,7 @@ export const columns: ColumnDef<Route>[] = [
                     class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
                     onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
                 },
-                () => [
-                    'Grade',
-                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
-                ],
+                () => ['LvL', h(ArrowUpDown, {class: 'ml-1 h-3 w-3 text-xs md:text-md'})],
             );
         },
         cell: ({row}) =>
@@ -113,7 +118,7 @@ export const columns: ColumnDef<Route>[] = [
                 },
                 () => [
                     'Setter',
-                    h(ArrowUpDown, {class: 'ml-2 h-4 w-4 text-xs md:text-md '}),
+                    h(ArrowUpDown, {class: 'ml-1 h-3 w-3 text-xs md:text-md'}),
                 ],
             );
         },
@@ -122,6 +127,29 @@ export const columns: ColumnDef<Route>[] = [
                 'div',
                 {class: 'text-center capitalize text-xs px-1 md:text-md '},
                 row.getValue('setter'),
+            ),
+    },
+    {
+        accessorKey: 'date',
+        header: ({column}) => {
+            return h(
+                Button,
+                {
+                    variant: 'ghost',
+                    class: 'w-full text-xs text-center px-1 md:text-md lg:text-lg',
+                    onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+                },
+                () => [
+                    'Date',
+                    h(ArrowUpDown, {class: 'ml-1 h-3 w-3 text-xs md:text-md'}),
+                ],
+            );
+        },
+        cell: ({row}) =>
+            h(
+                'div',
+                {class: 'text-center capitalize text-xs px-1 md:text-md '},
+                formatDate(row.getValue('date')),
             ),
     },
 ];
