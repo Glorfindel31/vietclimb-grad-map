@@ -93,7 +93,7 @@
                         <TableCell
                             v-for="cell in row.getVisibleCells()"
                             :key="cell.id"
-                            class="px-1">
+                            class="px-1 text-center">
                             <FlexRender
                                 :render="cell.column.columnDef.cell"
                                 :props="cell.getContext()" />

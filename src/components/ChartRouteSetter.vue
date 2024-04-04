@@ -23,7 +23,7 @@
 <template>
     <Card :class="cn(props.class)">
         <CardHeader>
-            <CardTitle>Level Chart</CardTitle>
+            <CardTitle>Setter Chart</CardTitle>
         </CardHeader>
         <CardContent class="w-full">
             <VisXYContainer

@@ -31,7 +31,7 @@
     });
 </script>
 <template>
-    <div class="grid gap-4 mb-4 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 mb-4 w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <Card>
             <CardHeader>
                 <CardTitle>Route Total</CardTitle>

@@ -53,23 +53,25 @@
                     alt="Logo" />
             </div>
             <Transition name="fade">
-                <div v-if="data">
+                <div
+                    v-if="data"
+                    class="flex flex-col-reverse md:flex-col gap-4 justify-center items-center">
                     <RouteCountCards
                         :routeNum="data.routeNum"
                         :easyRouteCount="easyRouteCount"
                         :normalRouteCount="normalRouteCount"
                         :hardRouteCount="hardRouteCount" />
                     <div
-                        class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mb-4">
-                        <RouteList :data="data" class="" />
+                        class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full">
                         <Chart
+                            :incomingData="data.transformedValues"
+                            class="flex flex-col justify-center items-center w-full" />
+                        <ChartRouteSetter
                             :incomingData="data.transformedValues"
                             class="flex flex-col justify-center items-center w-full" />
                     </div>
                     <div class="flex flex-col justify-center min-w-full">
-                        <ChartRouteSetter
-                            :incomingData="data.transformedValues"
-                            class="flex flex-col justify-center items-center w-full" />
+                        <RouteList :data="data" />
                     </div>
                 </div>
                 <div v-else>
