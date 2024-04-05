@@ -43,6 +43,11 @@
                                     About
                                 </RouterLink>
                             </Button>
+                            <Button variant="outline" asChild>
+                                <RouterLink to="/map" class="text-lg font-medium">
+                                    Map
+                                </RouterLink>
+                            </Button>
                         </SheetDescription>
                     </SheetHeader>
                 </SheetContent>
