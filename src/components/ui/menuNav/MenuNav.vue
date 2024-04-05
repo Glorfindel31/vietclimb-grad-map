@@ -34,7 +34,7 @@
                         <SheetDescription
                             class="flex justify-end items-center px-8 gap-2">
                             <Button variant="outline" asChild>
-                                <RouterLink to="/" class="text-lg font-medium">
+                                <RouterLink to="/home" class="text-lg font-medium">
                                     Home
                                 </RouterLink>
                             </Button>
@@ -44,7 +44,7 @@
                                 </RouterLink>
                             </Button>
                             <Button variant="outline" asChild>
-                                <RouterLink to="/map" class="text-lg font-medium">
+                                <RouterLink to="/" class="text-lg font-medium">
                                     Map
                                 </RouterLink>
                             </Button>
