@@ -42,14 +42,22 @@ onMounted(() => {
         controls = new OrbitControls(camera, renderer.domElement);
 
         // Add ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1); // soft white light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // soft white light
         scene.add(ambientLight);
 
         // Add directional light
 
-        const pointLight = new THREE.PointLight(0xbdf4ff, 50, 100);
-        pointLight.position.set(-5, 10, -10); // Adjust position as needed
-        scene.add(pointLight);
+        const pointLight01 = new THREE.PointLight(0xbdf4ff, 80, 100);
+        pointLight01.position.set(-5, 10, -10); // Adjust position as needed
+        pointLight01.castShadow = true;
+
+        scene.add(pointLight01);
+
+        const pointLight02 = new THREE.PointLight(0xbdf4ff, 80, 100);
+        pointLight02.position.set(-5, 10, -10); // Adjust position as needed
+        pointLight02.castShadow = true;
+
+        scene.add(pointLight02);
 
         // Load the GLTF model
         const loader = new GLTFLoader();
@@ -80,20 +88,22 @@ onMounted(() => {
                 if (child.isMesh) {
                     console.log('Geometry name:', child.name);
 
-                    if (child.name === 'G-Object004') {
+                    if (child.name !== '10Mats') {
                         child.material = new THREE.MeshPhongMaterial({
                             color: 0xffecc7,
                             specular: 0xffffff,
                             shininess: 0,
+                            shadowSide: THREE.DoubleSide,
                         });
-                    } else if (child.name === 'G-Object005') {
+                    } else if (child.name === '10Mats') {
                         child.material = new THREE.MeshPhongMaterial({
                             color: 0x757575,
                             specular: 0xffffff,
                             shininess: 100,
+                            shadowSide: THREE.DoubleSide,
                         });
                     } else {
-                        child.material = new THREE.MeshStandardMaterial({ color: 0x808080 });
+                        child.material = new THREE.MeshStandardMaterial({ color: 0xf5426c });
                     }
                 }
             });
