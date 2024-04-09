@@ -46,9 +46,10 @@ onMounted(() => {
         scene.add(ambientLight);
 
         // Add directional light
-        const directionalLight = new THREE.DirectionalLight(0xbdf4ff, 0.5);
-        directionalLight.position.set(1, 1, 2); // Adjust position as needed
-        scene.add(directionalLight);
+
+        const pointLight = new THREE.PointLight(0xbdf4ff, 50, 100);
+        pointLight.position.set(-5, 10, -10); // Adjust position as needed
+        scene.add(pointLight);
 
         // Load the GLTF model
         const loader = new GLTFLoader();
@@ -87,7 +88,7 @@ onMounted(() => {
                         });
                     } else if (child.name === 'G-Object005') {
                         child.material = new THREE.MeshPhongMaterial({
-                            color: 0x3b3b3b,
+                            color: 0x757575,
                             specular: 0xffffff,
                             shininess: 100,
                         });
