@@ -6,6 +6,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/addons/shaders/FXAAShader.js'
 
 let camera, renderer, mesh, controls;
 
@@ -20,7 +22,7 @@ const mouse = new THREE.Vector2();
 const hoverMaterial = new THREE.MeshPhongMaterial({
     color: 0xfcba03,
     emissive: 0xfcba03,
-    emissiveIntensity: 1.5,
+    emissiveIntensity: 1.8,
 });
 const wallMaterial = new THREE.MeshPhongMaterial({
     color: 0xebdeb9,
@@ -94,8 +96,8 @@ onMounted(() => {
     // Create a renderer
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setClearColor(0x171717, 0.5);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x171717, 0.7);
+    renderer.setPixelRatio(window.devicePixelRatio * 2);
     renderer.setSize(mapContainer.value.clientWidth, mapContainer.value.clientHeight);
     renderer.shadowMap.enabled = true;
 
@@ -107,8 +109,12 @@ onMounted(() => {
         0.1, // Radius
         0.95 // Threshold
     );
+    const fxaaPass = new ShaderPass(FXAAShader);
+    fxaaPass.uniforms['resolution'].value.set(1 / window.innerWidth, 1 / window.innerHeight);
+    fxaaPass.renderToScreen = true;
     composer.addPass(renderScene);
     composer.addPass(bloomPass);
+    composer.addPass(fxaaPass);
 
     // Append the renderer to the container element
     if (mapContainer.value) {
@@ -120,12 +126,12 @@ onMounted(() => {
         controls = new OrbitControls(camera, renderer.domElement);
 
         // Add ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // soft white light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.4); // soft white light
 
 
 
         // Add point light
-        const pointLight01 = new THREE.PointLight(0xbdf4ff, 300, 500);
+        const pointLight01 = new THREE.PointLight(0xffffff, 600, 800);
         pointLight01.position.set(-5, 20, -10); // Adjust position as needed
         pointLight01.castShadow = true;
         pointLight01.shadow.mapSize.width = 1500; // default is 512
@@ -167,6 +173,7 @@ onMounted(() => {
                         child.castShadow = true;
                     } else if (child.name === '10Mats') {
                         child.material = matsMaterial;
+                        child.mateiral = THREE.SmoothShading;
                         child.receiveShadow = true;
                     } else {
                         child.material = new THREE.MeshStandardMaterial({ color: 0xf5426c });
