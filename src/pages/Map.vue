@@ -173,7 +173,7 @@ onMounted(() => {
                         child.castShadow = true;
                     } else if (child.name === '10Mats') {
                         child.material = matsMaterial;
-                        child.mateiral = THREE.SmoothShading;
+                        child.material = THREE.SmoothShading;
                         child.receiveShadow = true;
                     } else {
                         child.material = new THREE.MeshStandardMaterial({ color: 0xf5426c });
