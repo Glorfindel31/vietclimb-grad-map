@@ -5,7 +5,7 @@ import Map from '@/pages/Map.vue';
 
 const routes = [
     {
-        path: '/home',
+        path: '/',
         name: 'Home',
         component: Home,
     },
@@ -15,7 +15,7 @@ const routes = [
         component: About,
     },
     {
-        path: '/',
+        path: '/map',
         name: 'Map',
         component: Map,
     },

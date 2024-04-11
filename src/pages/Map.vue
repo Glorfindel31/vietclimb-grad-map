@@ -122,7 +122,7 @@ onMounted(() => {
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor(0x171717, 0.7);
-    renderer.setPixelRatio(window.devicePixelRatio * 1);
+    renderer.setPixelRatio(window.devicePixelRatio * 1.5);
     renderer.setSize(mapContainer.value.clientWidth, mapContainer.value.clientHeight);
     renderer.shadowMap.enabled = true;
 
@@ -149,14 +149,12 @@ onMounted(() => {
         // Add ambient light
         const ambientLight = new THREE.AmbientLight(0xffffff, 1); // soft white light
 
-
-
         // Add point light
         const pointLight01 = new THREE.PointLight(0xffffff, 600, 800);
         pointLight01.position.set(-5, 20, -10); // Adjust position as needed
         pointLight01.castShadow = true;
-        pointLight01.shadow.mapSize.width = 500; // default is 512
-        pointLight01.shadow.mapSize.height = 500; // default is 512
+        pointLight01.shadow.mapSize.width = 1500; // default is 512
+        pointLight01.shadow.mapSize.height = 1500; // default is 512
         pointLight01.shadow.camera.near = 0.2; // default
         pointLight01.shadow.camera.far = 10; // default
 
@@ -252,7 +250,13 @@ onUnmounted(() => {
 
 <template>
     <div class="min-w-full min-h-full border rounded-lg p-4">
-        <div ref="mapContainer" class="w-full h-[80vh] overflow-hidden flex justify-center items-center"></div>
+        <h2 class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            3D Gym's Map</h2>
+        <blockquote class="mt-6 border-l-2 pl-6 italic mb-4">
+            In the case you are not familiar with the gym's zones
+        </blockquote>
+
+        <div ref="mapContainer" class="w-full h-[70vh] overflow-hidden flex justify-center items-center"></div>
     </div>
     <div class="border border-foreground absolute z-50 top-0 left-0 px-4 py-2 rounded-sm bg-background" ref="mouseBox"
         id="mouseBox" style="visibility: hidden"></div>
