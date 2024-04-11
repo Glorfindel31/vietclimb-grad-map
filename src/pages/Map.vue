@@ -6,8 +6,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
-import { FXAAShader } from 'three/addons/shaders/FXAAShader.js'
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+
 
 let camera, renderer, mesh, controls;
 
@@ -95,7 +97,7 @@ onMounted(() => {
 
     // Create a renderer
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor(0x171717, 0.7);
     renderer.setPixelRatio(window.devicePixelRatio * 2);
     renderer.setSize(mapContainer.value.clientWidth, mapContainer.value.clientHeight);
@@ -109,12 +111,8 @@ onMounted(() => {
         0.1, // Radius
         0.95 // Threshold
     );
-    const fxaaPass = new ShaderPass(FXAAShader);
-    fxaaPass.uniforms['resolution'].value.set(1 / window.innerWidth, 1 / window.innerHeight);
-    fxaaPass.renderToScreen = true;
     composer.addPass(renderScene);
     composer.addPass(bloomPass);
-    composer.addPass(fxaaPass);
 
     // Append the renderer to the container element
     if (mapContainer.value) {
@@ -141,6 +139,22 @@ onMounted(() => {
 
         scene.add(ambientLight);
         scene.add(pointLight01);
+
+        const fontLoader = new FontLoader();
+
+        fontLoader.load(
+            'node_modules/three/examples/fonts/helvetiker_regular.typeface.json',
+            (font) => {
+                const textGeometry = new TextGeometry('Hello, Three.js!', {
+                    font: font,
+                    size: 2,
+                    depth: 0.2,
+                })
+                const textMaterial = new THREE.MeshNormalMaterial();
+                const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+                textMesh.position.set(0, 5, 0);
+                scene.add(textMesh);
+            });
 
 
         // Load the GLTF model
@@ -181,16 +195,7 @@ onMounted(() => {
                 }
             });
 
-            // Animation camera
-            const animate = () => {
-                requestAnimationFrame(animate);
 
-                // Render the scene
-                // renderer.render(scene, camera);
-                composer.render()
-            };
-
-            animate();
         }, undefined, (error) => {
             console.error('An error while loading the model');
         });
@@ -201,6 +206,16 @@ onMounted(() => {
         window.addEventListener('mouseleave', revertMaterials, false);
 
     }
+    // Animation camera
+    const animate = () => {
+        requestAnimationFrame(animate);
+
+        // Render the scene
+        // renderer.render(scene, camera);
+        composer.render()
+    };
+
+    animate();
 });
 
 onUnmounted(() => {
