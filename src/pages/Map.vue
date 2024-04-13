@@ -6,34 +6,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { hoverMaterial, wallMaterial, matsMaterial, defaultMaterial } from '@/THREE/material'
+import { scene, raycaster, mouse, lightSetup } from '@/THREE/setup'
 
-let camera, renderer, mesh, controls;
-
-let hoverMesh = null;
+let camera, renderer, mesh, controls, hoverMesh;
 const mapContainer = ref(null);
 const mouseBox = ref(null);
-const scene = new THREE.Scene();
-
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-
-const hoverMaterial = new THREE.MeshPhongMaterial({
-    color: 0xfcba03,
-    emissive: 0xfcba03,
-    emissiveIntensity: 1.8,
-});
-const wallMaterial = new THREE.MeshPhongMaterial({
-    color: 0xebdeb9,
-    specular: 0xffffff,
-    shininess: 0,
-    shadowSide: THREE.DoubleSide,
-});
-const matsMaterial = new THREE.MeshPhongMaterial({
-    color: 0x8a8a8a,
-    specular: 0xffffff,
-    shininess: 100,
-    shadowSide: THREE.DoubleSide,
-});
 
 // Function to handle window resize
 const onWindowResize = () => {
@@ -47,6 +25,14 @@ const onWindowResize = () => {
 
 //Mouse over function
 function onMouseMove(event) {
+    function textBeautifier(string) {
+        return string.replace(/\d+/g, '') // Remove all digits
+            .replace(/_/g, ' ') // Replace underscores with spaces
+            .replace(/\b\w/g, function (l) { return l.toUpperCase() }) // Capitalize the first letter of each word
+            .replace(/\s\w/g, function (l) { return l.toLowerCase() }) // Ensure the rest of the letters are in lowercase
+            .replace(/([A-Z])/g, ' $1') // Add a space before each capital letter (excluding the first letter)
+            .trim(); // Remove any leading or trailing spaces
+    }
     // Normalize mouse position to -1 to +1 range
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -80,17 +66,10 @@ function onMouseMove(event) {
         if (hoverY + boxHeight > window.innerHeight) {
             hoverY = windowY - boxHeight - 10; // Adjust offset as needed
         }
-
         mouseBox.value.style.left = `${hoverX}px`;
         mouseBox.value.style.top = `${hoverY}px`;
         mouseBox.value.style.visibility = 'visible';
-        mouseBox.value.textContent = mesh.name
-            .replace(/\d+/g, '') // Remove all digits
-            .replace(/_/g, ' ') // Replace underscores with spaces
-            .replace(/\b\w/g, function (l) { return l.toUpperCase() }) // Capitalize the first letter of each word
-            .replace(/\s\w/g, function (l) { return l.toLowerCase() }) // Ensure the rest of the letters are in lowercase
-            .replace(/([A-Z])/g, ' $1') // Add a space before each capital letter (excluding the first letter)
-            .trim(); // Remove any leading or trailing spaces
+        mouseBox.value.textContent = textBeautifier(mesh.name)
     } else {
         if (hoverMesh) {
             hoverMesh.material = wallMaterial;
@@ -100,16 +79,7 @@ function onMouseMove(event) {
     }
 }
 
-// Function to revert the material of all meshes to their original state
-function revertMaterials() {
-    if (hoverMesh) {
-        hoverMesh.material = wallMaterial;
-        hoverMesh = null; // Reset the hoveredMesh variable
-    }
-}
-
 onMounted(() => {
-
     // Create a camera
     camera = new THREE.PerspectiveCamera(
         20,
@@ -119,7 +89,6 @@ onMounted(() => {
     );
 
     // Create a renderer
-
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor(0x171717, 0.7);
     renderer.setPixelRatio(window.devicePixelRatio * 1.5);
@@ -141,39 +110,22 @@ onMounted(() => {
     if (mapContainer.value) {
         mapContainer.value.appendChild(renderer.domElement);
         renderer.setSize(mapContainer.value.clientWidth, mapContainer.value.clientHeight);
-
-
         // Create OrbitControls
         controls = new OrbitControls(camera, renderer.domElement);
-
         // Add ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1); // soft white light
-
-        // Add point light
-        const pointLight01 = new THREE.PointLight(0xffffff, 600, 800);
-        pointLight01.position.set(-5, 20, -10); // Adjust position as needed
-        pointLight01.castShadow = true;
-        pointLight01.shadow.mapSize.width = 1500; // default is 512
-        pointLight01.shadow.mapSize.height = 1500; // default is 512
-        pointLight01.shadow.camera.near = 0.2; // default
-        pointLight01.shadow.camera.far = 10; // default
-
+        const { ambientLight, pointLight01 } = lightSetup()
         scene.add(ambientLight);
         scene.add(pointLight01);
-
         // Load the GLTF model
         const loader = new GLTFLoader();
         loader.load('/VCmapThreeJS.glb', (gltf) => {
-
             // Add the model to the scene
             scene.add(gltf.scene);
-
             // Calculate the bounding box of the entire scene to find its center
             const boundingBox = new THREE.Box3().setFromObject(gltf.scene);
             const center = boundingBox.getCenter(new THREE.Vector3());
 
             gltf.scene.position.sub(center);
-
             // Set the OrbitControls target to the new center of the scene
             controls.target.set(0, 0, 0);
             controls.update();
@@ -181,7 +133,6 @@ onMounted(() => {
             // Camera position adjustment
             camera.position.set(40, 37, 41);
             camera.lookAt(controls.target);
-
             // Apply shaders
             gltf.scene.traverse((child) => {
                 if (child.isMesh) {
@@ -192,28 +143,21 @@ onMounted(() => {
                         child.material = matsMaterial;
                         child.receiveShadow = true;
                     } else {
-                        child.material = new THREE.MeshStandardMaterial({ color: 0xf5426c });
+                        child.material = defaultMaterial;
                         child.receiveShadow = true;
                     }
                 }
             });
-
-
         }, undefined, (error) => {
             console.error('An error while loading the model');
         });
-
         // Add event listener
         window.addEventListener('resize', onWindowResize);
         renderer.domElement.addEventListener('mousemove', onMouseMove, false);
-        window.addEventListener('mouseleave', revertMaterials, false);
     }
     // Animation camera
     const animate = () => {
         requestAnimationFrame(animate);
-
-        // Render the scene
-        // renderer.render(scene, camera);
         composer.render()
     };
 
@@ -226,7 +170,6 @@ onUnmounted(() => {
         mapContainer.value.removeChild(renderer.domElement);
     }
     renderer.dispose();
-
     scene.traverse((object) => {
         if (object.geometry) {
             object.geometry.dispose();
@@ -239,12 +182,8 @@ onUnmounted(() => {
             }
         }
     });
-
     window.removeEventListener('resize', onWindowResize);
     renderer.domElement.removeEventListener('mousemove', onMouseMove, false);
-    window.removeEventListener('mouseleave', revertMaterials, false);
-
-
 });
 </script>
 
